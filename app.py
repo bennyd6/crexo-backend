@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 import google.generativeai as genai
 from flask_cors import CORS
+import os
 
 app = Flask(__name__)
 CORS(app)  # Allow cross-origin requests
@@ -33,4 +34,6 @@ def generate_content():
         return jsonify({'error': f'Failed to generate content: {str(e)}'}), 500
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    # Get the port from environment variables or use the default 5000
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port, debug=True)
